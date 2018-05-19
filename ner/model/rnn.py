@@ -57,6 +57,7 @@ class NER_net:
         # projection:
         W = tf.get_variable("projection_w", [2 * unit_num, TAGS_NUM])
         b = tf.get_variable("projection_b", [TAGS_NUM])
+        
         x_reshape = tf.reshape(outputs, [-1, 2 * unit_num])
         projection = tf.matmul(x_reshape, W) + b
 
@@ -64,6 +65,7 @@ class NER_net:
         self.outputs = tf.reshape(projection, [self.batch_size, -1, TAGS_NUM])
 
         self.seq_length = tf.convert_to_tensor(self.batch_size * [max_sequence_in_batch], dtype=tf.int32)
+        
         self.log_likelihood, self.transition_params = tf.contrib.crf.crf_log_likelihood(
             self.outputs, self.y, self.seq_length)
 
