@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+encoding//data/deal.py=utf-8
+encoding//data/word2vec.py=utf-8
+encoding//model/rnn.py=utf-8
+encoding//model/utils.py=utf-8
+encoding/<project>=UTF-8
