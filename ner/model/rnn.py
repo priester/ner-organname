@@ -6,7 +6,7 @@ from utils import *
 
 
 BATCH_SIZE = 128
-unit_num = 300         # 默认词向量的大小等于RNN(每个time step) 和 CNN(列) 中神经单元的个数, 为了避免混淆model中全部用unit_num表示。
+unit_num = 50         # 默认词向量的大小等于RNN(每个time step) 和 CNN(列) 中神经单元的个数, 为了避免混淆model中全部用unit_num表示。
 time_step = 300      # 每个句子的最大长度和time_step一样,为了避免混淆model中全部用time_step表示。
 DROPOUT_RATE = 0.6
 EPOCH = 1000
@@ -90,9 +90,8 @@ def train(net, iterator, sess):
                 [net.outputs, net.transition_params, net.train_op, net.loss])
 
             if current_epoch % 100 == 0:
-                print ('*' * 100)
                 print (current_epoch, 'loss', losses)
-                print ('*' * 100)
+
 
 #             # 每隔10%的进度则save一次。
 #             if current_epoch % (EPOCH / 10) == 0 and current_epoch != 0:
@@ -148,13 +147,18 @@ if __name__ == '__main__':
 
 #     统计不重复的词
     vocab_size = get_src_vocab_size()
+#     print (vocab_size) 
 #     
     src_unknown_id = tgt_unknown_id = vocab_size
+    print (src_unknown_id) 
     src_padding = vocab_size + 1
+    print (tgt_unknown_id) 
 
     src_vocab_table, tgt_vocab_table = create_vocab_tables(src_vocab_file, tgt_vocab_file, src_unknown_id,
                                                            tgt_unknown_id)
     embedding = load_word2vec_embedding(vocab_size)
+    
+    print (embedding) 
 
 #     if action == 'train':
     iterator = get_iterator(src_vocab_table, tgt_vocab_table, vocab_size, BATCH_SIZE)
